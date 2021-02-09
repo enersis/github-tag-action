@@ -87,8 +87,11 @@ fi
 
 case "$log" in
     *#major* ) new=$(semver -i major $tag); part="major";;
+    *"BREAKING CHANGE"* ) new=$(semver -i major $tag); part="major";;
     *#minor* ) new=$(semver -i minor $tag); part="minor";;
+    *feat* ) new=$(semver -i minor $tag); part="minor";;
     *#patch* ) new=$(semver -i patch $tag); part="patch";;
+    *fix* ) new=$(semver -i minor $tag); part="minor";;
     * ) 
         if [ "$default_semvar_bump" == "none" ]; then
             echo "Default bump was set to none. Skipping..."; exit 0 
