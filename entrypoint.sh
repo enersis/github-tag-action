@@ -57,6 +57,9 @@ case "$tag_context" in
     * ) echo "Unrecognised context"; exit 1;;
 esac
 
+echo "pre_tag = $pre_tag"
+echo "tag = $tag"
+
 # if there are none, start tags at INITIAL_VERSION which defaults to 0.0.0
 if [ -z "$tag" ]
 then
@@ -90,8 +93,10 @@ case "$log" in
     *"BREAKING CHANGE"* ) new=$(semver -i major $tag); part="major";;
     *#minor* ) new=$(semver -i minor $tag); part="minor";;
     *feat* ) new=$(semver -i minor $tag); part="minor";;
+    *feature* ) new=$(semver -i minor $tag); part="minor";;
     *#patch* ) new=$(semver -i patch $tag); part="patch";;
     *fix* ) new=$(semver -i minor $tag); part="patch";;
+    *refactor* ) new=$(semver -i minor $tag); part="patch";;
     * ) 
         if [ "$default_semvar_bump" == "none" ]; then
             echo "Default bump was set to none. Skipping..."; exit 0 
