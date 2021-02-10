@@ -106,6 +106,9 @@ case "$log" in
         ;;
 esac
 
+echo "part = $part"
+echo "new = $new"
+
 if $pre_release
 then
     # Already a prerelease available, bump it
